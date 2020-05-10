@@ -1,13 +1,15 @@
 import React from "react";
 
-
-function TodoList(props){
-
+function TodoList(props) {
   return (
-    <div>
-      <li>{todoItem}</li>
+    <div
+      onClick={() => {
+        props.wantToDelete(props.id);
+      }}
+    >
+      <li> {props.text} </li>
     </div>
   );
 }
 
-export default TdoList ;
+export default TodoList;

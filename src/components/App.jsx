@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Heading from "./Heading.jsx";
+import TodoList from "./TodoList.jsx";
 
 function App() {
   const [inputText, setInputText] = useState("");
@@ -6,6 +8,7 @@ function App() {
 
   function handleChange(event) {
     const newValue = event.target.value;
+    // console.log(newValue);
     setInputText(newValue);
   }
 
@@ -16,11 +19,22 @@ function App() {
     setInputText("");
   }
 
+  function deleteList(target) {
+    const a = items.filter((element,ind )=> {
+      if (ind !== target) {
+        return element;
+      }
+    });
+
+    setItems(a);
+  }
+
   return (
     <div className="container">
       <div className="heading">
-        <h1>To-Do List</h1>
+        <Heading text="To-Do List" />
       </div>
+
       <div className="form">
         <input onChange={handleChange} type="text" value={inputText} />
         <button onClick={addItem}>
@@ -29,8 +43,13 @@ function App() {
       </div>
       <div>
         <ul>
-          {items.map(todoItem => (
-            <li>{todoItem}</li>
+          {items.map((todoItem, index) => (
+            <TodoList
+              key={index}
+              id={index}
+              text={todoItem}
+              wantToDelete={deleteList}
+            />
           ))}
         </ul>
       </div>
